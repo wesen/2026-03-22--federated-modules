@@ -40,3 +40,5 @@ export function CartPanel() {
     </section>
   );
 }
+
+export default CartPanel;

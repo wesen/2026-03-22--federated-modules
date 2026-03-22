@@ -924,7 +924,7 @@ This step matters because it converted the implementation from "well-shaped sour
 
 **Inferred user intent:** Avoid a demo that only looks correct on paper; prove that the toolchain and serving model work in practice.
 
-**Commit (code):** pending
+**Commit (code):** 4b14dad — "Install deps and add smoke verification"
 
 ### What I did
 
@@ -982,4 +982,80 @@ npm install
 npm run build:remote
 npm run build:host
 node -e "import('@module-federation/enhanced/runtime').then(mod => console.log(Object.keys(mod).sort().join('\n')))"
+```
+
+## Step 12: Fix the static remote export and verify the full demo in a browser
+
+The smoke script proved that the server and build outputs were reachable, but the first real browser run exposed a runtime bug in the static loading path. The host used `React.lazy(() => import("checkout/CartPanel"))`, but the remote module only exported `CartPanel` as a named export. React reported that the lazy element resolved to an invalid type because there was no default component export.
+
+I fixed that by adding a default export to the remote `CartPanel` module, rebuilt the remote, reran the browser check, and then exercised both the static and registry-driven paths. After the fix, the host rendered the static remote panel on page load and the registry button successfully loaded both `checkout/CartPanel` and `checkout/formatPrice` at runtime with no console errors.
+
+### Prompt Context
+
+**User prompt (verbatim):** (same as Step 4)
+
+**Assistant interpretation:** Continue through the checklist and prove the actual runtime behavior in the browser, fixing any issues uncovered by real execution.
+
+**Inferred user intent:** The final demo should not just build; it should demonstrate the intended loading behavior correctly in a real page.
+
+**Commit (code):** pending
+
+### What I did
+
+- Ran `npm run smoke`
+- Launched the demo server with `npm run serve`
+- Loaded `http://localhost:8080/host/` in a browser
+- Observed a React lazy-loading runtime error in the static remote path
+- Added `export default CartPanel` to `apps/checkout-remote/src/components/CartPanel.tsx`
+- Rebuilt the remote with `npm run build:remote`
+- Reloaded the host page and verified the static remote panel rendered
+- Clicked the registry-backed load button and verified the remote component and utility function loaded successfully
+- Confirmed the browser console was clean after the fix
+- Updated the ticket tasks and changelog for this step
+
+### Why
+
+- Browser execution is the only honest check of the runtime-loading experience
+- The static lazy import specifically requires the remote module shape to match what React expects
+
+### What worked
+
+- The smoke script passed
+- After the remote export fix, both loading paths worked
+- The registry-driven path successfully loaded both the component and utility module
+
+### What didn't work
+
+- The first browser pass failed with a React production error because the remote component lacked a default export
+
+### What I learned
+
+- Smoke tests that only check server reachability are useful but insufficient; a real browser run is what catches component-shape issues at the federation boundary
+
+### What was tricky to build
+
+- The tricky part was that the issue was not a bundler failure or a missing file. It was a mismatch between the remote module export shape and what `React.lazy` expects from a module promise
+
+### What warrants a second pair of eyes
+
+- Whether the host should eventually include an explicit error boundary around the static lazy section for a friendlier failure mode
+
+### What should be done in the future
+
+- Run the final doc validation and reMarkable upload for the updated ticket
+
+### Code review instructions
+
+- Review `apps/checkout-remote/src/components/CartPanel.tsx`
+- Review the step notes here for the exact verification sequence
+
+### Technical details
+
+Key evidence from this step:
+
+```text
+Smoke test passed
+Static remote panel rendered on /host/
+Registry-backed button loaded checkout/CartPanel and checkout/formatPrice
+Browser console errors after fix: 0
 ```

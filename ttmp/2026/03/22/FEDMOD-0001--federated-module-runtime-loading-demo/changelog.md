@@ -14,6 +14,7 @@
 - Added the single-origin Express server for `/host/`, `/remotes/checkout/`, and `/registry/`
 - Refined the host UI so both loading modes show their path and request details explicitly
 - Installed dependencies, verified successful production builds, and added a smoke script for same-origin serving
+- Fixed the remote export shape for `React.lazy` and verified both static and registry-driven loading paths in a real browser session
 
 ## 2026-03-22
 
