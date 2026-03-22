@@ -791,7 +791,7 @@ The server is intentionally plain. It redirects `/` to `/host/`, serves the host
 
 **Inferred user intent:** The architecture described in the docs should become a real runnable topology, not just a plan.
 
-**Commit (code):** pending
+**Commit (code):** 79b7f2e — "Add single-origin demo server"
 
 ### What I did
 
@@ -842,4 +842,70 @@ Published paths:
 /host/
 /remotes/checkout/
 /registry/remotes.json
+```
+
+## Step 10: Make both host loading modes explicit in the UI
+
+The host already contained the two intended loading paths, but the page could still be clearer about what each section was actually doing. For a teaching demo, hidden behavior is weak behavior, so this step adds explicit path and request annotations directly into the host UI.
+
+This is a small code change, but it matters pedagogically. An intern looking at the page should be able to see which part is using the build-configured remote entry and which part is using the runtime registry path without reading the source first.
+
+### Prompt Context
+
+**User prompt (verbatim):** (same as Step 4)
+
+**Assistant interpretation:** Continue executing the checklist and make the two loading modes easier to understand from the UI itself.
+
+**Inferred user intent:** The demo should teach by observation, not only by code reading.
+
+**Commit (code):** pending
+
+### What I did
+
+- Updated the static remote section to show the configured remote entry URL
+- Updated the registry-driven section to show the registry source path and runtime request IDs
+- Updated the ticket tasks and changelog for this step
+
+### Why
+
+- The host page should explain itself
+- A teaching demo is stronger when the runtime paths are visible in the interface and not only in the source
+
+### What worked
+
+- The existing host structure already separated the two loading modes cleanly, so the explanatory UI additions stayed small
+
+### What didn't work
+
+- N/A
+
+### What I learned
+
+- A small amount of textual instrumentation in the UI does a lot to reduce "federation magic"
+
+### What was tricky to build
+
+- The challenge was not technical complexity; it was avoiding clutter while still surfacing the information an intern actually needs
+
+### What warrants a second pair of eyes
+
+- Whether the final page needs one more small note explaining that both sections still resolve to the same remote container
+
+### What should be done in the future
+
+- Install dependencies and run real build-and-serve verification next
+
+### Code review instructions
+
+- Review `apps/host/src/components/StaticRemoteSection.tsx`
+- Review `apps/host/src/components/RegistryRemoteSection.tsx`
+
+### Technical details
+
+UI additions:
+
+```text
+Configured remote entry URL
+Registry source path
+Runtime request IDs
 ```

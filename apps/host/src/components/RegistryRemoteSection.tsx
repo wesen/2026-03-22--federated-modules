@@ -42,10 +42,16 @@ export function RegistryRemoteSection() {
 
   return (
     <div className="registry-stack">
+      <p className="meta-copy">
+        Registry source: <code>/registry/remotes.json</code>
+      </p>
       <button className="action-button" type="button" onClick={handleLoad}>
         Load remote from registry
       </button>
       <p className="meta-copy">{status}</p>
+      <p className="meta-copy">
+        Runtime request IDs: <code>checkout/CartPanel</code> and <code>checkout/formatPrice</code>
+      </p>
       {pricePreview ? <p className="meta-copy">Remote utility preview: {pricePreview}</p> : null}
       {error ? <p className="error-copy">{error}</p> : null}
       {RemoteComponent ? <RemoteComponent /> : null}
