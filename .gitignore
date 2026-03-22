@@ -1,6 +1,6 @@
 node_modules/
 npm-debug.log*
-package-lock.json
 apps/*/dist/
+apps/*/.__mf__temp/
 coverage/
 .DS_Store

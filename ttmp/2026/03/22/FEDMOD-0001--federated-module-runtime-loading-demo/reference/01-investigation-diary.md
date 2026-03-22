@@ -858,7 +858,7 @@ This is a small code change, but it matters pedagogically. An intern looking at 
 
 **Inferred user intent:** The demo should teach by observation, not only by code reading.
 
-**Commit (code):** pending
+**Commit (code):** 6cf7dfd — "Clarify host loading modes in UI"
 
 ### What I did
 
@@ -908,4 +908,78 @@ UI additions:
 Configured remote entry URL
 Registry source path
 Runtime request IDs
+```
+
+## Step 11: Install dependencies, verify builds, and add a smoke script
+
+This was the first real contact point with the installed packages. Up to this step the code was structurally plausible, but unproven. I installed the workspace dependencies, built both the remote and host, checked the installed `@module-federation/enhanced` export surface, and then added a smoke script that launches the server and verifies the core same-origin paths.
+
+This step matters because it converted the implementation from "well-shaped source files" into "source files that the actual toolchain can compile." It also produced the first hard evidence that the chosen versions of Vite, `@module-federation/vite`, and `@module-federation/enhanced` can coexist in this repo.
+
+### Prompt Context
+
+**User prompt (verbatim):** (same as Step 4)
+
+**Assistant interpretation:** Continue through the checklist by validating the real packages and adding repeatable verification.
+
+**Inferred user intent:** Avoid a demo that only looks correct on paper; prove that the toolchain and serving model work in practice.
+
+**Commit (code):** pending
+
+### What I did
+
+- Removed `package-lock.json` from `.gitignore` so dependency resolution can be tracked
+- Ran `npm install`
+- Ran `npm run build:remote`
+- Ran `npm run build:host`
+- Inspected the installed `@module-federation/enhanced/runtime` export surface
+- Added `scripts/smoke-demo.mjs`
+- Added the root `npm run smoke` script
+- Updated the ticket tasks and changelog for this step
+
+### Why
+
+- Installation and build were needed to catch real package/API mismatches
+- A smoke script makes the same-origin serving contract repeatable and reviewable
+
+### What worked
+
+- Both production builds succeeded
+- The installed runtime package exports included `createInstance` and `loadRemote`, which matched the host implementation assumptions
+
+### What didn't work
+
+- N/A during this step
+
+### What I learned
+
+- The current package choices are viable enough to produce real build artifacts before any server-side smoke testing
+
+### What was tricky to build
+
+- The biggest risk here was a hidden runtime API mismatch. I reduced that risk by checking the actual installed export surface in addition to trusting the docs
+
+### What warrants a second pair of eyes
+
+- The runtime behavior of the registry-driven path in a real browser session, which still needs end-to-end validation
+
+### What should be done in the future
+
+- Run the smoke script and then exercise the full demo under the single-origin server
+
+### Code review instructions
+
+- Review `scripts/smoke-demo.mjs`
+- Review the root `package.json` scripts
+- Review `package-lock.json` only if dependency provenance needs inspection
+
+### Technical details
+
+Successful commands during this step:
+
+```bash
+npm install
+npm run build:remote
+npm run build:host
+node -e "import('@module-federation/enhanced/runtime').then(mod => console.log(Object.keys(mod).sort().join('\n')))"
 ```

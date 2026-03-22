@@ -12,7 +12,8 @@
     "build:host": "npm run build --workspace @fedmod/host",
     "build:remote": "npm run build --workspace @fedmod/checkout-remote",
     "serve": "node ./server/serve-demo.mjs",
-    "demo": "npm run build && npm run serve"
+    "demo": "npm run build && npm run serve",
+    "smoke": "node ./scripts/smoke-demo.mjs"
   },
   "dependencies": {
     "express": "^5.2.1"

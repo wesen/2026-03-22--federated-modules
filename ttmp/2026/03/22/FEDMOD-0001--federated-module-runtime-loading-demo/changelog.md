@@ -13,6 +13,7 @@
 - Added the same-origin runtime registry file for remote resolution
 - Added the single-origin Express server for `/host/`, `/remotes/checkout/`, and `/registry/`
 - Refined the host UI so both loading modes show their path and request details explicitly
+- Installed dependencies, verified successful production builds, and added a smoke script for same-origin serving
 
 ## 2026-03-22
 
