@@ -436,7 +436,7 @@ alright, update the document, then create a detailed list of tasks in the ticket
 
 **Inferred user intent:** Reduce launch and operational complexity while preserving the core runtime-loading lesson, then implement the demo in small reviewable steps.
 
-**Commit (code):** pending
+**Commit (code):** a2c83b8 — "Initialize FEDMOD-0001 ticket docs"
 
 ### What I did
 
@@ -490,4 +490,72 @@ Revised public layout:
 http://localhost:8080/host/
 http://localhost:8080/remotes/checkout/
 http://localhost:8080/registry/remotes.json
+```
+
+## Step 5: Add the root workspace scaffolding
+
+With the ticket plan settled, the next step was to create the shared repository-level files that every later implementation step would depend on. The repo previously had no `package.json`, no `.gitignore`, and no shared TypeScript configuration, so there was no stable foundation for host, remote, or server code.
+
+This step stayed deliberately small. I added only the root workspace metadata, basic build/serve scripts, ignore rules, and a shared TypeScript base config. I did not run `npm install` yet because the workspace package manifests for `apps/host` and `apps/checkout-remote` do not exist until the next steps.
+
+### Prompt Context
+
+**User prompt (verbatim):** (same as Step 4)
+
+**Assistant interpretation:** Start executing the implementation checklist in commit-sized steps, beginning with shared workspace scaffolding.
+
+**Inferred user intent:** Keep the implementation incremental and reviewable instead of jumping straight into a large undifferentiated scaffold.
+
+**Commit (code):** pending
+
+### What I did
+
+- Added the root `package.json` with npm workspaces for `apps/host` and `apps/checkout-remote`
+- Added shared root scripts for build and serve flows
+- Added a root `.gitignore`
+- Added `tsconfig.base.json` for shared TypeScript defaults
+- Updated the ticket tasks and changelog to mark this step complete
+
+### Why
+
+- The host, remote, and server need a shared workspace contract before package manifests and source files are introduced
+- Deferring installation until the app manifests exist avoids unnecessary lockfile churn
+
+### What worked
+
+- The repo was clean enough that the shared scaffold could be added without needing any migration work
+
+### What didn't work
+
+- N/A
+
+### What I learned
+
+- In a greenfield repo, the first implementation step should establish conventions, not behavior
+
+### What was tricky to build
+
+- The main constraint was sequencing: if I had run package installation before the workspace packages existed, npm would have had incomplete workspace metadata to resolve against
+
+### What warrants a second pair of eyes
+
+- Whether the root script set is sufficient or whether a dedicated `smoke` script should also live at the root later
+
+### What should be done in the future
+
+- Add the remote workspace package next so the first real build target exists
+
+### Code review instructions
+
+- Review the root `package.json` and confirm the workspaces and scripts match the ticket plan
+- Review `.gitignore` and `tsconfig.base.json` for reasonable defaults
+
+### Technical details
+
+Root files introduced:
+
+```text
+package.json
+.gitignore
+tsconfig.base.json
 ```

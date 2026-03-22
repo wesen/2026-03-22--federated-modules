@@ -7,6 +7,7 @@
 - Added runtime reference notes and ticket-local experiment scripts
 - Prepared ticket bookkeeping for validation and reMarkable upload
 - Revised the design for single-origin path-based serving and expanded the ticket into an implementation checklist
+- Added the root workspace scaffolding for the implementation phase
 
 ## 2026-03-22
 

@@ -1,0 +1,24 @@
+{
+  "name": "federated-modules-demo",
+  "private": true,
+  "type": "module",
+  "packageManager": "npm@10.9.4",
+  "workspaces": [
+    "apps/host",
+    "apps/checkout-remote"
+  ],
+  "scripts": {
+    "build": "npm run build:remote && npm run build:host",
+    "build:host": "npm run build --workspace @fedmod/host",
+    "build:remote": "npm run build --workspace @fedmod/checkout-remote",
+    "serve": "node ./server/serve-demo.mjs",
+    "demo": "npm run build && npm run serve"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "typescript": "^5.9.3"
+  }
+}
