@@ -10,6 +10,7 @@
 - Added the root workspace scaffolding for the implementation phase
 - Added the `checkout` remote workspace with exposed `CartPanel` and `formatPrice` modules
 - Added the host workspace with static and registry-driven remote loading scaffolding
+- Added the same-origin runtime registry file for remote resolution
 
 ## 2026-03-22
 

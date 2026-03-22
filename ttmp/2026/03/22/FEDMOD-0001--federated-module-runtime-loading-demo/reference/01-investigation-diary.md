@@ -647,7 +647,7 @@ I chose to make the host UI explicit rather than minimal. The point of the demo 
 
 **Inferred user intent:** Make the runtime-loading behavior observable in the eventual UI, not just technically present.
 
-**Commit (code):** pending
+**Commit (code):** 708b874 — "Scaffold host workspace and loaders"
 
 ### What I did
 
@@ -710,4 +710,69 @@ Host loading paths introduced:
 ```text
 Static: import("checkout/CartPanel")
 Dynamic: loadRemoteModule("checkout", "checkout/CartPanel")
+```
+
+## Step 8: Add the runtime registry file
+
+After the host runtime helper existed, the registry could stop being hypothetical. This step adds the actual JSON file the host will request at `/registry/remotes.json`, and it keeps the entry value relative so the host can resolve it against whatever origin is serving the demo.
+
+This is intentionally small but conceptually important. The registry is the point where the host stops relying entirely on build-time configuration and starts discovering remote locations at runtime.
+
+### Prompt Context
+
+**User prompt (verbatim):** (same as Step 4)
+
+**Assistant interpretation:** Continue through the checklist with the smallest next runtime boundary: the registry file itself.
+
+**Inferred user intent:** Make the demo architecture concrete in small reviewable slices rather than skipping straight to a monolithic runnable state.
+
+**Commit (code):** pending
+
+### What I did
+
+- Added `registry/remotes.json` with the same-origin path for the `checkout` remote
+- Updated the ticket tasks and changelog for this step
+
+### Why
+
+- The host runtime loader already expects a registry response shape
+- Keeping the registry value relative reinforces the single-origin serving model
+
+### What worked
+
+- The registry contract stayed as small as the design intended: one key, one path
+
+### What didn't work
+
+- N/A
+
+### What I learned
+
+- A tiny registry file is enough to demonstrate runtime discovery without dragging the demo into platform design
+
+### What was tricky to build
+
+- The main design choice was whether to store an absolute URL or a relative path. The relative path is better for a same-origin teaching demo because it keeps the origin decision with the server, not the JSON file
+
+### What warrants a second pair of eyes
+
+- Whether future variants of the demo should also add a second remote entry for comparison
+
+### What should be done in the future
+
+- Add the single-origin server next so the registry file and both app builds can be served together
+
+### Code review instructions
+
+- Review `registry/remotes.json`
+- Confirm the value matches the host runtime expectations in `apps/host/src/runtime/registry.ts`
+
+### Technical details
+
+Registry payload:
+
+```json
+{
+  "checkout": "/remotes/checkout/remoteEntry.js"
+}
 ```
