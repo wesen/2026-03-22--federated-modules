@@ -2,7 +2,6 @@
 
 ## TODO
 
-- [ ] Step 6: Implement `server/serve-demo.mjs` so `/host/`, `/remotes/checkout/`, and `/registry/remotes.json` are served from one origin
 - [ ] Step 7: Wire the host UI to show both static and registry-driven remote loading flows
 - [ ] Step 8: Add verification scripts or smoke tests for build output and same-origin serving
 - [ ] Step 9: Run the end-to-end demo, capture evidence, and update the diary/changelog/task status
@@ -21,3 +20,4 @@
 - [x] Step 3: Scaffold `apps/checkout-remote` with Vite, React, and Module Federation exposes
 - [x] Step 4: Scaffold `apps/host` with Vite, React, local UI, and runtime loading utilities
 - [x] Step 5: Add `registry/remotes.json` with same-origin remote paths
+- [x] Step 6: Implement `server/serve-demo.mjs` so `/host/`, `/remotes/checkout/`, and `/registry/remotes.json` are served from one origin

@@ -726,7 +726,7 @@ This is intentionally small but conceptually important. The registry is the poin
 
 **Inferred user intent:** Make the demo architecture concrete in small reviewable slices rather than skipping straight to a monolithic runnable state.
 
-**Commit (code):** pending
+**Commit (code):** 13c2b24 — "Add same-origin remote registry"
 
 ### What I did
 
@@ -775,4 +775,71 @@ Registry payload:
 {
   "checkout": "/remotes/checkout/remoteEntry.js"
 }
+```
+
+## Step 9: Add the single-origin demo server
+
+At this point the repo had two application workspaces and a registry file, but there was still no code that made the promised public URL layout real. This step adds the server that turns the design from a set of paths in markdown into an actual serving contract.
+
+The server is intentionally plain. It redirects `/` to `/host/`, serves the host build under `/host/`, serves the remote build under `/remotes/checkout/`, and serves the registry directory under `/registry/`. That is enough for the demo while keeping the operational story simple for an intern.
+
+### Prompt Context
+
+**User prompt (verbatim):** (same as Step 4)
+
+**Assistant interpretation:** Continue implementing the checklist by making the one-origin serving model concrete in code.
+
+**Inferred user intent:** The architecture described in the docs should become a real runnable topology, not just a plan.
+
+**Commit (code):** pending
+
+### What I did
+
+- Added `server/serve-demo.mjs`
+- Wired `/` to redirect to `/host/`
+- Wired static serving for `/host`, `/remotes/checkout`, and `/registry`
+- Updated the ticket tasks and changelog for this step
+
+### Why
+
+- The single-origin server is the simplifying choice the user explicitly asked for
+- Without it, the host and registry paths are still only design assumptions
+
+### What worked
+
+- The server code stayed as simple as intended: path-based static publishing with no application logic
+
+### What didn't work
+
+- N/A
+
+### What I learned
+
+- The single-origin model is easiest to maintain when the server stays "dumb" and only reflects filesystem layout into URL layout
+
+### What was tricky to build
+
+- The main requirement was discipline: it would be easy to overcomplicate the server, but the teaching goal is stronger if the server is boring and the federation behavior stays the star of the demo
+
+### What warrants a second pair of eyes
+
+- Whether the server needs a host SPA fallback beyond `/host/` for this first version
+
+### What should be done in the future
+
+- Install dependencies, build both workspaces, and smoke-test the served paths next
+
+### Code review instructions
+
+- Review `server/serve-demo.mjs`
+- Confirm the path layout matches the design doc and registry file
+
+### Technical details
+
+Published paths:
+
+```text
+/host/
+/remotes/checkout/
+/registry/remotes.json
 ```
