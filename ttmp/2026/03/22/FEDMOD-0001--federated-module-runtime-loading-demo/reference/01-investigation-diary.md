@@ -998,7 +998,7 @@ I fixed that by adding a default export to the remote `CartPanel` module, rebuil
 
 **Inferred user intent:** The final demo should not just build; it should demonstrate the intended loading behavior correctly in a real page.
 
-**Commit (code):** pending
+**Commit (code):** 9f731e4 — "Verify runtime loading end to end"
 
 ### What I did
 
@@ -1058,4 +1058,80 @@ Smoke test passed
 Static remote panel rendered on /host/
 Registry-backed button loaded checkout/CartPanel and checkout/formatPrice
 Browser console errors after fix: 0
+```
+
+## Step 13: Finalize ticket bookkeeping, validation, and delivery
+
+The last step was to make sure the ticket itself accurately reflected the implementation work and that the reMarkable bundle was refreshed to include the new code-backed design, diary entries, and verification evidence. This meant updating related-file metadata, rerunning `docmgr doctor`, and uploading the bundle again rather than relying on the earlier docs-only version that was already on the device.
+
+One operational wrinkle showed up here: the first upload attempt skipped because a file with the same name already existed on the device. I reran the upload with `--force` so the device copy now matches the actual final ticket contents.
+
+### Prompt Context
+
+**User prompt (verbatim):** (same as Step 4)
+
+**Assistant interpretation:** Finish the ticket properly, not just the code, and ensure the deliverable on reMarkable reflects the final implementation state.
+
+**Inferred user intent:** The documentation and delivery artifacts should be as current and reviewable as the code itself.
+
+**Commit (code):** pending
+
+### What I did
+
+- Refreshed docmgr related-file metadata so the ticket points to the actual implementation files
+- Ran `docmgr doctor --ticket FEDMOD-0001 --stale-after 30`
+- Ran a reMarkable bundle dry-run
+- Attempted a normal upload and observed a skip because the file already existed
+- Reran the upload with `--force`
+- Verified the remote listing at `/ai/2026/03/22/FEDMOD-0001`
+- Marked the final task complete in `tasks.md`
+
+### Why
+
+- The implementation had moved the ticket from design-only to code-backed documentation
+- The reMarkable copy needed to be overwritten so it contained the finished guide and diary, not the earlier draft state
+
+### What worked
+
+- `docmgr doctor` passed cleanly
+- The dry-run succeeded
+- The forced upload completed successfully
+- The cloud listing still showed the expected artifact name afterward
+
+### What didn't work
+
+- The first non-forced upload skipped because the existing file name matched the new bundle name
+
+### What I learned
+
+- Repeated ticket deliveries need an explicit overwrite policy when the bundle name is stable
+
+### What was tricky to build
+
+- The subtle part here was sequencing: if I recorded the final delivery evidence after uploading, the bundle would immediately become stale again. The right pattern is to update the docs, rerun validation, and then do the final upload
+
+### What warrants a second pair of eyes
+
+- Whether future ticket deliveries should use a versioned bundle name instead of overwriting in place
+
+### What should be done in the future
+
+- N/A
+
+### Code review instructions
+
+- Check `tasks.md` for the fully completed checklist
+- Check `changelog.md` and this diary for the final validation and delivery evidence
+- Confirm the final artifact exists on reMarkable
+
+### Technical details
+
+Final delivery evidence:
+
+```text
+docmgr doctor: All checks passed
+remarquee dry-run: passed
+remarquee upload: SKIP on first attempt because file existed
+remarquee upload --force: OK
+remote listing: /ai/2026/03/22/FEDMOD-0001 -> FEDMOD-0001 Federated Module Demo Guide
 ```

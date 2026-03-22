@@ -10,6 +10,16 @@ DocType: design-doc
 Intent: long-term
 Owners: []
 RelatedFiles:
+    - Path: apps/checkout-remote/vite.config.ts
+      Note: Remote exposes and shared dependency configuration
+    - Path: apps/host/src/runtime/federation.ts
+      Note: Runtime remote registration and loadRemote usage
+    - Path: apps/host/vite.config.ts
+      Note: Static remote configuration and host base path
+    - Path: registry/remotes.json
+      Note: Concrete registry payload for runtime discovery
+    - Path: server/serve-demo.mjs
+      Note: Single-origin serving model implemented in code
     - Path: ttmp/2026/03/22/FEDMOD-0001--federated-module-runtime-loading-demo/reference/02-runtime-api-and-experiment-notes.md
       Note: Companion reference for API lookups and copy-paste snippets
     - Path: ttmp/2026/03/22/FEDMOD-0001--federated-module-runtime-loading-demo/scripts/inspect-remote-entry.mjs
@@ -26,6 +36,7 @@ LastUpdated: 2026-03-22T10:44:13.199920379-04:00
 WhatFor: Intern-facing analysis, design, and implementation guide for a greenfield module federation runtime-loading demo.
 WhenToUse: Use when building or reviewing the proposed federated module demo in this ticket workspace.
 ---
+
 
 
 # Federated Module Demo Analysis, Design, and Implementation Guide

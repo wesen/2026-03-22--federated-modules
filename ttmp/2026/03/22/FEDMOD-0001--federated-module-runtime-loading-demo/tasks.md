@@ -2,7 +2,7 @@
 
 ## TODO
 
-- [ ] Step 10: Re-run `docmgr doctor` and upload the revised bundle to reMarkable
+None.
 
 ## Completed
 
@@ -21,3 +21,4 @@
 - [x] Step 7: Wire the host UI to show both static and registry-driven remote loading flows
 - [x] Step 8: Add verification scripts or smoke tests for build output and same-origin serving
 - [x] Step 9: Run the end-to-end demo, capture evidence, and update the diary/changelog/task status
+- [x] Step 10: Re-run `docmgr doctor` and upload the revised bundle to reMarkable

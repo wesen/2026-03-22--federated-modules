@@ -15,6 +15,7 @@
 - Refined the host UI so both loading modes show their path and request details explicitly
 - Installed dependencies, verified successful production builds, and added a smoke script for same-origin serving
 - Fixed the remote export shape for `React.lazy` and verified both static and registry-driven loading paths in a real browser session
+- Refreshed ticket relations, passed `docmgr doctor`, and re-uploaded the updated bundle to reMarkable
 
 ## 2026-03-22
 

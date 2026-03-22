@@ -10,6 +10,16 @@ DocType: index
 Intent: long-term
 Owners: []
 RelatedFiles:
+    - Path: apps/checkout-remote/src/components/CartPanel.tsx
+      Note: Primary remote component loaded by the host at runtime
+    - Path: apps/host/src/pages/HomePage.tsx
+      Note: Host page that demonstrates static and registry-driven loading
+    - Path: package.json
+      Note: Root workspace scripts and dependency coordination for the demo
+    - Path: registry/remotes.json
+      Note: Runtime registry mapping remote names to same-origin paths
+    - Path: server/serve-demo.mjs
+      Note: Single-origin server exposing the host
     - Path: ttmp/2026/03/22/FEDMOD-0001--federated-module-runtime-loading-demo/design-doc/01-federated-module-demo-analysis-design-and-implementation-guide.md
       Note: Primary intern-facing architecture and implementation guide
     - Path: ttmp/2026/03/22/FEDMOD-0001--federated-module-runtime-loading-demo/reference/01-investigation-diary.md
@@ -26,6 +36,7 @@ LastUpdated: 2026-03-22T10:44:13.146660183-04:00
 WhatFor: Organize the design, reference materials, experiments, and delivery artifacts for the federated module demo.
 WhenToUse: Use as the landing page for reviewing or continuing the demo design and implementation work.
 ---
+
 
 
 # Federated module runtime loading demo
