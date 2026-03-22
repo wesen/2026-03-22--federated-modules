@@ -2,7 +2,6 @@
 
 ## TODO
 
-- [ ] Step 4: Scaffold `apps/host` with Vite, React, local UI, and runtime loading utilities
 - [ ] Step 5: Add `registry/remotes.json` with same-origin remote paths
 - [ ] Step 6: Implement `server/serve-demo.mjs` so `/host/`, `/remotes/checkout/`, and `/registry/remotes.json` are served from one origin
 - [ ] Step 7: Wire the host UI to show both static and registry-driven remote loading flows
@@ -21,3 +20,4 @@
 - [x] Step 1: Update the ticket docs for single-origin path-based serving and expand the implementation checklist
 - [x] Step 2: Create the root workspace files (`package.json`, `.gitignore`, shared scripts, and any shared config)
 - [x] Step 3: Scaffold `apps/checkout-remote` with Vite, React, and Module Federation exposes
+- [x] Step 4: Scaffold `apps/host` with Vite, React, local UI, and runtime loading utilities

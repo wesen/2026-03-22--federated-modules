@@ -9,6 +9,7 @@
 - Revised the design for single-origin path-based serving and expanded the ticket into an implementation checklist
 - Added the root workspace scaffolding for the implementation phase
 - Added the `checkout` remote workspace with exposed `CartPanel` and `formatPrice` modules
+- Added the host workspace with static and registry-driven remote loading scaffolding
 
 ## 2026-03-22
 

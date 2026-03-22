@@ -574,7 +574,7 @@ This step adds a standalone remote app that can be visited on its own and later 
 
 **Inferred user intent:** Build a demo that is easy to inspect and review one layer at a time.
 
-**Commit (code):** pending
+**Commit (code):** 5b6f579 — "Scaffold checkout remote workspace"
 
 ### What I did
 
@@ -631,4 +631,83 @@ Exposed modules:
 ```text
 ./CartPanel
 ./formatPrice
+```
+
+## Step 7: Scaffold the host workspace and runtime loaders
+
+Once the remote existed, the host could stop being hypothetical. This step adds the host package, build configuration, local UI, type declarations for the static federated import, and the runtime loader utilities that will later consult `/registry/remotes.json`.
+
+I chose to make the host UI explicit rather than minimal. The point of the demo is to teach runtime boundaries, so the host includes a local panel, a static remote-import section, and a registry-driven section. That keeps the final walkthrough visual instead of burying the key concepts in invisible plumbing.
+
+### Prompt Context
+
+**User prompt (verbatim):** (same as Step 4)
+
+**Assistant interpretation:** Continue implementing the checklist by introducing the host app and the loading paths it will demonstrate.
+
+**Inferred user intent:** Make the runtime-loading behavior observable in the eventual UI, not just technically present.
+
+**Commit (code):** pending
+
+### What I did
+
+- Added `apps/host/package.json`
+- Added `apps/host/tsconfig.json`
+- Added `apps/host/vite.config.ts`
+- Added `apps/host/index.html`
+- Added `apps/host/src/main.tsx`
+- Added `apps/host/src/App.tsx`
+- Added `apps/host/src/components/LocalStatusCard.tsx`
+- Added `apps/host/src/components/RemoteBoundary.tsx`
+- Added `apps/host/src/components/StaticRemoteSection.tsx`
+- Added `apps/host/src/components/RegistryRemoteSection.tsx`
+- Added `apps/host/src/pages/HomePage.tsx`
+- Added `apps/host/src/runtime/registry.ts`
+- Added `apps/host/src/runtime/federation.ts`
+- Added `apps/host/src/styles.css`
+- Added `apps/host/src/types/federation.d.ts`
+- Updated the ticket tasks and changelog for this step
+
+### Why
+
+- The host is where the lesson becomes visible
+- Adding both a static and a runtime-driven loading path now keeps the implementation aligned with the design instead of postponing the key distinction
+
+### What worked
+
+- The host structure from the design doc mapped cleanly to concrete components and runtime helper modules
+
+### What didn't work
+
+- Runtime verification is still deferred until the registry file, server, and dependency installation exist
+
+### What I learned
+
+- The host benefits from strongly separated responsibilities: UI components, registry lookup, and federation runtime registration should not be mixed together
+
+### What was tricky to build
+
+- The sharp edge here is balancing realism with clarity. A real host could hide most of this behind abstractions, but for a teaching demo the abstractions need to stay shallow enough for an intern to trace
+
+### What warrants a second pair of eyes
+
+- The exact shape of the `@module-federation/enhanced` runtime API once dependencies are installed and TypeScript can validate the imports against the real package
+
+### What should be done in the future
+
+- Add the registry file and server next, then install dependencies and validate the real runtime behavior
+
+### Code review instructions
+
+- Start with `apps/host/vite.config.ts`
+- Then review `src/runtime/registry.ts` and `src/runtime/federation.ts`
+- Finally read `src/pages/HomePage.tsx` to see how the host makes the loading modes visible
+
+### Technical details
+
+Host loading paths introduced:
+
+```text
+Static: import("checkout/CartPanel")
+Dynamic: loadRemoteModule("checkout", "checkout/CartPanel")
 ```

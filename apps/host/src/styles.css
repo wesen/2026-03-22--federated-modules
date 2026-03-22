@@ -1,0 +1,140 @@
+:root {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  color: #f4f8f5;
+  background:
+    radial-gradient(circle at top center, rgba(90, 165, 120, 0.22), transparent 32%),
+    linear-gradient(180deg, #0f1b15 0%, #08100c 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+code {
+  font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+  font-size: 0.94em;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.host-shell {
+  min-height: 100vh;
+  padding: 40px 20px 72px;
+  display: grid;
+  gap: 22px;
+}
+
+.hero-banner,
+.panel {
+  width: min(100%, 980px);
+  margin: 0 auto;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(11, 20, 15, 0.78);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(16px);
+}
+
+.hero-banner {
+  padding: 28px;
+}
+
+.hero-banner h1 {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.hero-copy {
+  max-width: 58ch;
+}
+
+.panel {
+  padding: 24px;
+}
+
+.panel-accent {
+  background:
+    linear-gradient(135deg, rgba(61, 120, 88, 0.22), rgba(14, 27, 20, 0.82)),
+    rgba(11, 20, 15, 0.78);
+}
+
+.panel-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #7ce5a7;
+}
+
+.body-copy,
+.meta-copy,
+.loading-copy,
+.error-copy {
+  line-height: 1.6;
+}
+
+.status-grid {
+  margin: 22px 0 0;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.status-grid dt {
+  color: rgba(244, 248, 245, 0.58);
+  font-size: 0.88rem;
+}
+
+.status-grid dd {
+  margin: 4px 0 0;
+  font-weight: 700;
+}
+
+.remote-slot {
+  margin-top: 20px;
+}
+
+.registry-stack {
+  display: grid;
+  gap: 14px;
+}
+
+.action-button {
+  width: fit-content;
+  border: 0;
+  border-radius: 999px;
+  padding: 12px 18px;
+  background: linear-gradient(135deg, #7ce5a7, #53b8d0);
+  color: #082014;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.action-button:hover {
+  filter: brightness(1.05);
+}
+
+.error-copy {
+  color: #ffb0a7;
+}
+
+@media (max-width: 720px) {
+  .host-shell {
+    padding: 24px 14px 48px;
+  }
+}
