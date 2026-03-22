@@ -1,0 +1,126 @@
+:root {
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  color: #f4efe8;
+  background:
+    radial-gradient(circle at top left, rgba(245, 163, 74, 0.22), transparent 35%),
+    linear-gradient(180deg, #15120f 0%, #0d0b09 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.page-shell {
+  min-height: 100vh;
+  padding: 48px 24px;
+  display: grid;
+  gap: 24px;
+  place-items: center;
+}
+
+.hero-card,
+.cart-panel {
+  width: min(100%, 760px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  background: rgba(24, 19, 14, 0.84);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(18px);
+}
+
+.hero-card {
+  padding: 28px;
+}
+
+.hero-card h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.lede {
+  margin: 12px 0 0;
+  max-width: 52ch;
+  color: rgba(244, 239, 232, 0.82);
+  line-height: 1.6;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: #f5a34a;
+}
+
+.cart-panel {
+  padding: 24px;
+}
+
+.cart-header,
+.cart-item,
+.cart-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cart-list {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0;
+  display: grid;
+  gap: 14px;
+}
+
+.cart-item {
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cart-item h3,
+.cart-header h2 {
+  margin: 0;
+}
+
+.cart-item p {
+  margin: 4px 0 0;
+  color: rgba(244, 239, 232, 0.68);
+}
+
+.cart-footer {
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 1.1rem;
+}
+
+.pill {
+  margin: 0;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(245, 163, 74, 0.16);
+  color: #ffd2a0;
+}
+
+@media (max-width: 640px) {
+  .page-shell {
+    padding: 24px 16px;
+  }
+
+  .cart-header,
+  .cart-item,
+  .cart-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

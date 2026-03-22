@@ -8,6 +8,7 @@
 - Prepared ticket bookkeeping for validation and reMarkable upload
 - Revised the design for single-origin path-based serving and expanded the ticket into an implementation checklist
 - Added the root workspace scaffolding for the implementation phase
+- Added the `checkout` remote workspace with exposed `CartPanel` and `formatPrice` modules
 
 ## 2026-03-22
 

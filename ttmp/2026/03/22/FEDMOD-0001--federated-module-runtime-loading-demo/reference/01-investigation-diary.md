@@ -506,7 +506,7 @@ This step stayed deliberately small. I added only the root workspace metadata, b
 
 **Inferred user intent:** Keep the implementation incremental and reviewable instead of jumping straight into a large undifferentiated scaffold.
 
-**Commit (code):** pending
+**Commit (code):** 9845742 — "Add root workspace scaffold"
 
 ### What I did
 
@@ -558,4 +558,77 @@ Root files introduced:
 package.json
 .gitignore
 tsconfig.base.json
+```
+
+## Step 6: Scaffold the checkout remote workspace
+
+With the shared workspace in place, the first actual application code could be added. The remote comes first because it defines the modules the host will eventually consume, and it forces the public path and federation expose decisions into concrete files instead of leaving them as abstract design notes.
+
+This step adds a standalone remote app that can be visited on its own and later consumed by the host. It exposes a UI component (`./CartPanel`) and a non-UI helper (`./formatPrice`) so the eventual host can demonstrate that Module Federation is not only about React components.
+
+### Prompt Context
+
+**User prompt (verbatim):** (same as Step 4)
+
+**Assistant interpretation:** Start implementing the actual demo, in order, from the ticket checklist.
+
+**Inferred user intent:** Build a demo that is easy to inspect and review one layer at a time.
+
+**Commit (code):** pending
+
+### What I did
+
+- Added `apps/checkout-remote/package.json`
+- Added `apps/checkout-remote/tsconfig.json`
+- Added `apps/checkout-remote/vite.config.ts`
+- Added `apps/checkout-remote/index.html`
+- Added `apps/checkout-remote/src/App.tsx`
+- Added `apps/checkout-remote/src/main.tsx`
+- Added `apps/checkout-remote/src/components/CartPanel.tsx`
+- Added `apps/checkout-remote/src/utils/formatPrice.ts`
+- Added `apps/checkout-remote/src/styles.css`
+- Updated the ticket tasks and changelog for this step
+
+### Why
+
+- The remote is the first concrete federation boundary in the demo
+- Building the remote first makes the host work more grounded because the exposed module names and public paths become fixed inputs instead of guesses
+
+### What worked
+
+- The file layout from the design doc translated directly into a small but usable remote workspace
+
+### What didn't work
+
+- Build verification is intentionally deferred until the host workspace manifest exists, because npm workspace installation depends on both workspace package manifests being present
+
+### What I learned
+
+- A remote demo is much easier to reason about when it has a standalone preview page instead of existing only as an opaque federation artifact
+
+### What was tricky to build
+
+- The main sequencing constraint is package management, not UI code: the root workspace can describe both apps before installation, but dependency resolution should wait until both manifests are present
+
+### What warrants a second pair of eyes
+
+- The exact `@module-federation/vite` output shape under the `/remotes/checkout/` base path once dependencies are installed and the first build runs
+
+### What should be done in the future
+
+- Add the host workspace next, then install dependencies and run the first end-to-end build
+
+### Code review instructions
+
+- Start with `apps/checkout-remote/vite.config.ts`
+- Then review the exposed modules in `src/components/CartPanel.tsx` and `src/utils/formatPrice.ts`
+- Finally check `src/App.tsx` to confirm the remote has a standalone preview path
+
+### Technical details
+
+Exposed modules:
+
+```text
+./CartPanel
+./formatPrice
 ```
